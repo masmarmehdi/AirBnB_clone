@@ -20,6 +20,12 @@ class BaseModel:
         self.id = str(uuid4())
         self.created_at = datetime.today()
         self.updated_at = datetime.today()
+        if len(kwargs) != 0:
+            for key, value in kwargs.items():
+                if key == 'created_at' or key == 'updated_at':
+                    self.__dict__[key] = datetime.strftime(value, date_format)
+                else:
+                    self.__dict__[key] = value
     
     def save(self):
         '''Update datetime'''
