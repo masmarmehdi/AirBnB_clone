@@ -30,7 +30,15 @@ def parse(arg):
         return retl
 
 
-CLASSES = ['BaseModel']
+CLASSES = [
+        'BaseModel',
+        'User',
+        'State',
+        'City',
+        'Place',
+        'Amenity',
+        'Review'
+]
 
 
 class HBNBCommand(cmd.Cmd):
@@ -183,6 +191,19 @@ a given attribute key/value pair or dictionary.
                 else:
                     obj.__dict__[k] = v
         storage.save()
+
+    def do_count(self, argv):
+        """
+        Usage: count <class> or <class>.count()
+
+        Retrieve the number of instances of a given class.
+        """
+        arg = parse(argv)
+        count = 0
+        for element in storage.all().values():
+            if arg[0] == element.__class__.__name__:
+                count += 1
+        print(count)
 
 
 if __name__ == '__main__':
