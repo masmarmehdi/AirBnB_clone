@@ -11,9 +11,10 @@ from models.review import Review
 from models.state import State
 import json
 
+
 class FileStorage:
     '''class to serialize and deserialize instances
-    
+
     Attributes:
         __file_path (str): name of file
         __objects (dict): A dictionary of object instance
@@ -25,7 +26,7 @@ class FileStorage:
     def all(self):
         '''return dictionary of __objects'''
         return FileStorage.__objects
-    
+
     def new(self, obj):
         '''set __objects in obj with key <obj class name>.id'''
         oj_cls = obj.__class__.__name__
@@ -39,7 +40,7 @@ class FileStorage:
             obj_dict[object] = all_obj[object].to_dict()
         with open(FileStorage.__file_path, 'w') as file:
             json.dump(obj_dict, file, indent=4)
-    
+
     def reload(self):
         '''Deserialize the JSON file in path to object if it exists'''
         try:
