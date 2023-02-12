@@ -78,7 +78,8 @@ class HBNBCommand(cmd.Cmd):
         """
         arg = parse(argv)
         all_storage = storage.all()
-        class_instance = f"{arg[0]}.{arg[1]}"
+        if len(arg) > 1:
+            class_instance = f"{arg[0]}.{arg[1]}"
 
         if len(arg) == 0:
             print("** class name missing **")
@@ -99,7 +100,8 @@ class HBNBCommand(cmd.Cmd):
         """
         arg = parse(argv)
         all_storage = storage.all()
-        class_instance = f"{arg[0]}.{arg[1]}"
+        if len(arg) > 1:
+            class_instance = f"{arg[0]}.{arg[1]}"
 
         if len(arg) == 0:
             print("** class name missing **")
