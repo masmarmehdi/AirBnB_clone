@@ -24,9 +24,9 @@ def parse(arg):
             retl.append(square_brackets.group())
             return retl
     else:
-        lexer = split(arg[:curly_braces.span()[0]])
+        lexer = split(arg[:curly_brackets.span()[0]])
         retl = [i.strip(",") for i in lexer]
-        retl.append(curly_braces.group())
+        retl.append(curly_brackets.group())
         return retl
 
 
@@ -112,6 +112,24 @@ class HBNBCommand(cmd.Cmd):
         else:
             del all_storage[class_instance]
             storage.save()
+
+    def do_all(self, argv):
+        """
+        Usage: all or all <class> or <class>.all()
+
+        Displays the string representations of all instances of a given class.
+
+        Displays all instantiated objects if there is no class specification.
+        """
+        arg = parse(argv)
+        if len(arg) > 0 and arg[0] not in CLASSES:
+            print("** class doesn't exist **")
+        else:
+            all_objects = []
+            for element in storage.all().values():
+                if len(arg) >= 0 and arg[0] == element.__class__.__name__:
+                    all_objects.append(element.__str__())
+            print(all_objects)
 
 
 if __name__ == '__main__':
